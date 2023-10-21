@@ -1,0 +1,128 @@
+[gd_scene load_steps=24 format=3 uid="uid://bgo0dssjx7oqp"]
+
+[ext_resource type="Script" path="res://scenes/jump.gd" id="1_oo5ea"]
+[ext_resource type="PackedScene" uid="uid://dg1wuwnu00pxx" path="res://actor/player.tscn" id="1_r0865"]
+[ext_resource type="PackedScene" uid="uid://bs61bcyr2lqvi" path="res://platform/platform.tscn" id="2_vcx20"]
+[ext_resource type="PackedScene" uid="uid://bd3tfq0h6n1yq" path="res://platform/spring_platform.tscn" id="3_n2817"]
+[ext_resource type="PackedScene" uid="uid://deur8ijpd1c8a" path="res://platform/cloud_platform.tscn" id="4_flf1s"]
+[ext_resource type="FontFile" uid="uid://bnnesq7aimvd7" path="res://fonts/Kenney Pixel.ttf" id="6_7wexc"]
+[ext_resource type="PackedScene" uid="uid://de76s0xg6l3xg" path="res://bg.tscn" id="6_rfbyn"]
+[ext_resource type="PackedScene" uid="uid://dp7ooj2k3l022" path="res://platform/platform_base.tscn" id="7_4ftrq"]
+[ext_resource type="PackedScene" uid="uid://csstpkv6lkyaj" path="res://platform/platform_move.tscn" id="7_gog5a"]
+[ext_resource type="PackedScene" uid="uid://dwq5x4u7k6j27" path="res://actor/enemy.tscn" id="7_nsct0"]
+[ext_resource type="PackedScene" uid="uid://bw70fv2sv3e3p" path="res://platform/platform_coin.tscn" id="8_h0dwd"]
+[ext_resource type="Texture2D" uid="uid://ijnvikip244e" path="res://extra/btn_quit-normal.png" id="8_ulxbx"]
+[ext_resource type="Texture2D" uid="uid://cd5fenn83hfp2" path="res://extra/btn_quit-pressed.png" id="9_ir0ni"]
+[ext_resource type="Texture2D" uid="uid://2mnjjt6pqipx" path="res://assets/Coin/Coin-1.png.png" id="13_l1rmo"]
+[ext_resource type="Texture2D" uid="uid://blkeu84a3fl1y" path="res://extra/btn_up-normal.png" id="14_k4xdu"]
+[ext_resource type="Texture2D" uid="uid://cvcbexsm3kxrb" path="res://extra/btn_up-pressed.png" id="15_ckhnf"]
+[ext_resource type="Texture2D" uid="uid://dmfmmuoh4flwu" path="res://extra/btn_right-normal.png" id="16_kewyu"]
+[ext_resource type="Texture2D" uid="uid://nxvau3s4fun8" path="res://extra/btn_right-pressed.png" id="17_obiwd"]
+[ext_resource type="Texture2D" uid="uid://dhxgoschcn3if" path="res://extra/btn_left-normal.png" id="18_w08tr"]
+[ext_resource type="Texture2D" uid="uid://cf0t2xpkkpmq8" path="res://extra/btn_left-pressed.png" id="19_nh4cv"]
+[ext_resource type="AudioStream" uid="uid://cfylinpoj4wyp" path="res://extra/bg.ogg" id="21_myaqu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sv4b3"]
+size = Vector2(444, 67.25)
+
+[sub_resource type="FontVariation" id="FontVariation_gqyai"]
+base_font = ExtResource("6_7wexc")
+
+[node name="jump" type="Node2D"]
+script = ExtResource("1_oo5ea")
+platform_scene = Array[PackedScene]([ExtResource("2_vcx20"), ExtResource("3_n2817"), ExtResource("4_flf1s"), ExtResource("7_nsct0"), ExtResource("8_h0dwd"), ExtResource("7_gog5a")])
+
+[node name="bg" parent="." instance=ExtResource("6_rfbyn")]
+
+[node name="platform_containe" type="Node2D" parent="."]
+
+[node name="platform" parent="platform_containe" instance=ExtResource("7_4ftrq")]
+position = Vector2(-154, 622)
+scale = Vector2(2, 2)
+
+[node name="player" parent="." instance=ExtResource("1_r0865")]
+position = Vector2(176, 474)
+
+[node name="camera" type="Camera2D" parent="."]
+position = Vector2(159, 306)
+
+[node name="clean_platform" type="Area2D" parent="camera"]
+position = Vector2(2, 566)
+collision_layer = 0
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="camera/clean_platform"]
+position = Vector2(-5, -174.625)
+shape = SubResource("RectangleShape2D_sv4b3")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="camera"]
+
+[node name="Coin-1png" type="Sprite2D" parent="camera/CanvasLayer"]
+position = Vector2(22.125, 25.25)
+scale = Vector2(0.0421875, 0.046875)
+texture = ExtResource("13_l1rmo")
+
+[node name="coin" type="Label" parent="camera/CanvasLayer"]
+offset_left = 31.0
+offset_top = -2.0
+offset_right = 84.0
+offset_bottom = 49.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.396078, 0.396078, 0.396078, 1)
+theme_override_fonts/font = SubResource("FontVariation_gqyai")
+theme_override_font_sizes/font_size = 64
+text = "0
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="btn_close" type="TouchScreenButton" parent="camera/CanvasLayer"]
+position = Vector2(260, 10)
+scale = Vector2(1.2, 1.2)
+texture_normal = ExtResource("8_ulxbx")
+texture_pressed = ExtResource("9_ir0ni")
+
+[node name="score" type="Label" parent="camera/CanvasLayer"]
+offset_left = 123.0
+offset_top = 84.0
+offset_right = 191.0
+offset_bottom = 135.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.396078, 0.396078, 0.396078, 1)
+theme_override_fonts/font = SubResource("FontVariation_gqyai")
+theme_override_font_sizes/font_size = 64
+text = "0
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="up" type="TouchScreenButton" parent="camera/CanvasLayer"]
+position = Vector2(245, 555)
+scale = Vector2(1.5, 1.5)
+texture_normal = ExtResource("14_k4xdu")
+texture_pressed = ExtResource("15_ckhnf")
+action = "ui_accept"
+
+[node name="right" type="TouchScreenButton" parent="camera/CanvasLayer"]
+position = Vector2(72, 555)
+scale = Vector2(1.5, 1.5)
+texture_normal = ExtResource("16_kewyu")
+texture_pressed = ExtResource("17_obiwd")
+action = "ui_right"
+
+[node name="left" type="TouchScreenButton" parent="camera/CanvasLayer"]
+position = Vector2(15, 555)
+scale = Vector2(1.5, 1.5)
+texture_normal = ExtResource("18_w08tr")
+texture_pressed = ExtResource("19_nh4cv")
+action = "ui_left"
+
+[node name="bg_music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("21_myaqu")
+volume_db = -0.37
+autoplay = true
+
+[connection signal="body_entered" from="camera/clean_platform" to="." method="_on_clean_platform_body_entered"]
+[connection signal="pressed" from="camera/CanvasLayer/btn_close" to="." method="_on_touch_screen_button_pressed"]

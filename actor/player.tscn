@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3 uid="uid://dg1wuwnu00pxx"]
+
+[ext_resource type="Script" path="res://actor/player.gd" id="1_kyoiv"]
+[ext_resource type="Texture2D" uid="uid://cl0pfslnkek6u" path="res://assets/Characters/character_0005.png" id="2_iu8wk"]
+[ext_resource type="Texture2D" uid="uid://de0g40dfu4rja" path="res://assets/Characters/character_0004.png" id="3_ki3ky"]
+[ext_resource type="AudioStream" uid="uid://clhedgfexx4nr" path="res://extra/jump1.ogg" id="4_1yxev"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5fxlt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_iu8wk")
+}],
+"loop": true,
+"name": &"fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_ki3ky")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k54ne"]
+radius = 18.0
+height = 46.0
+
+[node name="player" type="CharacterBody2D" groups=["player"]]
+collision_mask = 15
+script = ExtResource("1_kyoiv")
+
+[node name="animated" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -24)
+scale = Vector2(2, 1.942)
+sprite_frames = SubResource("SpriteFrames_5fxlt")
+animation = &"fall"
+
+[node name="collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, -23)
+shape = SubResource("CapsuleShape2D_k54ne")
+
+[node name="jump_fx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_1yxev")
+pitch_scale = 1.5

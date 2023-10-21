@@ -1,0 +1,59 @@
+[gd_scene load_steps=11 format=3 uid="uid://cpcy6a52yltwj"]
+
+[ext_resource type="Texture2D" uid="uid://2mnjjt6pqipx" path="res://assets/Coin/Coin-1.png.png" id="1_ec57i"]
+[ext_resource type="Script" path="res://platform/coin.gd" id="1_ftrn2"]
+[ext_resource type="Texture2D" uid="uid://sabxbw5vqnl6" path="res://assets/Coin/Coin-2.png.png" id="2_ua3g7"]
+[ext_resource type="Texture2D" uid="uid://1ytun65p7kd4" path="res://assets/Coin/Coin-3.png.png" id="3_e5fgd"]
+[ext_resource type="Texture2D" uid="uid://0ft0wnsw57kf" path="res://assets/Coin/Coin-4.png.png" id="4_ra28p"]
+[ext_resource type="Texture2D" uid="uid://bvaistuq1vsos" path="res://assets/Coin/Coin-5.png.png" id="5_vd15b"]
+[ext_resource type="Texture2D" uid="uid://dr4bnxkpswtw2" path="res://assets/Coin/Coin-6.png.png" id="6_8nwih"]
+[ext_resource type="Texture2D" uid="uid://boe0vwkitwr6u" path="res://assets/Coin/Coin-7.png.png" id="7_p0xhs"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nrgvr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ec57i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ua3g7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_e5fgd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ra28p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_vd15b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_8nwih")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_p0xhs")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x1jrt"]
+radius = 278.399
+
+[node name="coin" type="Node2D" groups=["coin", "collect"]]
+script = ExtResource("1_ftrn2")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.2, 0.21)
+sprite_frames = SubResource("SpriteFrames_nrgvr")
+autoplay = "default"
+frame_progress = 0.336311
+
+[node name="Area2D" type="Area2D" parent="AnimatedSprite2D"]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/Area2D"]
+shape = SubResource("CircleShape2D_x1jrt")
+
+[connection signal="body_entered" from="AnimatedSprite2D/Area2D" to="." method="_on_area_2d_body_entered"]

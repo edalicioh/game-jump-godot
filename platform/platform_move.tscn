@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://csstpkv6lkyaj"]
+
+[ext_resource type="Script" path="res://platform/platform_move.gd" id="1_fc38t"]
+[ext_resource type="Texture2D" uid="uid://bqbcr1skr4kc8" path="res://assets/Tiles/tile_0001.png" id="2_w8nuf"]
+[ext_resource type="Texture2D" uid="uid://w46u4o43dbt" path="res://assets/Tiles/tile_0003.png" id="3_u8bxv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_57sx6"]
+size = Vector2(31.75, 13.5313)
+
+[node name="platform_move" type="StaticBody2D" groups=["plarform"]]
+collision_layer = 2
+script = ExtResource("1_fc38t")
+jump_force = 0.9
+
+[node name="left" type="Sprite2D" parent="."]
+position = Vector2(-9, -2)
+texture = ExtResource("2_w8nuf")
+
+[node name="right" type="Sprite2D" parent="."]
+position = Vector2(9, -2)
+texture = ExtResource("3_u8bxv")
+
+[node name="collision" type="CollisionShape2D" parent="."]
+position = Vector2(0.125, -1)
+shape = SubResource("RectangleShape2D_57sx6")
+one_way_collision = true
+
+[node name="collision2" type="CollisionShape2D" parent="."]
+position = Vector2(0.125, -1)
+shape = SubResource("RectangleShape2D_57sx6")
+one_way_collision = true
